@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function quiz() {
+export default function Quiz() {
   return (
     <View style={styles.container}>
-      <Text>Racedar, there can only be one!</Text>
+      <Text>Quiz screen</Text>
       <StatusBar style="auto" />
     </View>
   );

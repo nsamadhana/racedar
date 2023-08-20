@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Home from './screens/Home';
+import Quiz from './screens/Quiz';
+import Result from './screens/Result';
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Racedar, there can only be one!</Text>
+      <Home/> 
+      {/* <Quiz/> */}
+      {/* <Result /> */}
       <StatusBar style="auto" />
     </View>
   );
@@ -12,9 +18,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 40,
+    paddingHorizontal: 16,
   },
 });
