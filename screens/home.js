@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+export default function home() {
   return (
     <View style={styles.container}>
-      <Text>Racedar, there can only be one!</Text>
+      <Text>Home Screen</Text>
       <StatusBar style="auto" />
     </View>
   );
