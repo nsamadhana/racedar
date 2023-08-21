@@ -8,8 +8,8 @@ import Result from './screens/Result';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Home/> 
-      {/* <Quiz/> */}
+      {/* <Home/>  */}
+      <Quiz/>
       {/* <Result /> */}
       <StatusBar style="auto" />
     </View>
