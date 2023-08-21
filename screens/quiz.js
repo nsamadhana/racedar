@@ -1,20 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 export default function Quiz() {
   return (
     <View style={styles.container}>
-      <Text>Quiz screen</Text>
-      <StatusBar style="auto" />
+
+      <View style={styles.top}>
+        <Text>Imagine this is an image</Text>
+      </View>
+
+      <View style={styles.options}> 
+        <TouchableOpacity>
+          <Text>Option 1</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text>Option 2</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text>Option 3</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text>Option 4</Text>
+        </TouchableOpacity>
+      </View>
+        
+      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 12,
+  }, 
+  top: {
+    marginVertical: 16,
   },
+  options: {
+    marginVertical: 16,
+  }
 });
