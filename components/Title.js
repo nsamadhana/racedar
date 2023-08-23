@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function Title() {
     return (
-        <View style={StyleSheet.container}> 
-            <Text style={StyleSheet.titleText}>RACEDAR</Text>
+        <View style={styles.container}> 
+            <Text style={styles.titleText}>RACEDAR</Text>
         </View>
     )
 }
