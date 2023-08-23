@@ -5,7 +5,7 @@ import Title from '../components/Title';
 
 export default function Home({navigation}) {
   return (
-    <View>
+    <View style={styles.container}>
     <Title/>
 
     <View style={styles.bannerContainer}>
@@ -24,9 +24,13 @@ export default function Home({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingTop: 50, 
+    paddingHorizontal: 20,
+  }, 
   banner: {
-    width:400,
-    height:400,
+    width: 400,
+    height: 400,
 
   },
   bannerContainer: {

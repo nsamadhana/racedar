@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 export default function Result({navigation}) {
   return (
-    <View >
+    <View style={styles.container} >
       <View>
         <Text>This is the result screen</Text>
       </View>
@@ -17,7 +17,7 @@ export default function Result({navigation}) {
 
     <View> 
       <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
-        <Text>Go Home</Text>
+        <Text style={styles.return}>Go Home</Text>
       </TouchableOpacity>
     </View>
       
@@ -27,6 +27,10 @@ export default function Result({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingTop: 50, 
+    paddingHorizontal: 20,
+  },
   banner: {
     height: 300,
     width: 300
@@ -34,5 +38,10 @@ const styles = StyleSheet.create({
   bannerContainer: {
     justifyContent: 'center', 
     alignItems: 'center'
+  },
+  return: {
+    paddingHorizontal: 24, 
+    fontSize: 24, 
+    fontWeight: '600'
   },
 });

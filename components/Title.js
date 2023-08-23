@@ -1,19 +1,23 @@
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function Title() {
     return (
         <View style={StyleSheet.container}> 
-        <Text>RACEDAR - There can only be one</Text>
+            <Text style={StyleSheet.titleText}>RACEDAR</Text>
         </View>
     )
 }
 
-// const styles = StyleSheet.create({
-//     container: {
-//       flex: 1,
-//       backgroundColor: '#fff',
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//     },
-//   });
+const styles = StyleSheet.create({
+    titleText: {
+        fontSize: 40, 
+        fontWeight: '600',
+      },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+  });
   

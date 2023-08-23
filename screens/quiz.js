@@ -43,7 +43,8 @@ export default function Quiz({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12,
+    paddingTop: 50, 
+    paddingHorizontal: 20,
     height: '100%',
   }, 
   top: {
