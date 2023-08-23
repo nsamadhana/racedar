@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Title from '../components/Title';
 
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <View>
     <Title/>
@@ -15,7 +15,7 @@ export default function Home() {
       />
     </View>
 
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity onPress={()=>navigation.navigate("Quiz")}>
       <Text>Start Button</Text>
     </TouchableOpacity>
       

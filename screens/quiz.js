@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Touchable} from 'react-native';
 
-export default function Quiz() {
+export default function Quiz({navigation}) {
   return (
     <View style={styles.container}>
 
@@ -29,6 +29,10 @@ export default function Quiz() {
       <View style={styles.bottom}> 
         <TouchableOpacity>
           <Text>NEXT</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={()=>navigation.navigate("Result")}>
+          <Text>Go to Result</Text>
         </TouchableOpacity>
       </View>
         

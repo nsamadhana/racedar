@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-export default function Result() {
+export default function Result({navigation}) {
   return (
     <View >
       <View>
@@ -16,7 +16,7 @@ export default function Result() {
     </View>
 
     <View> 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
         <Text>Go Home</Text>
       </TouchableOpacity>
     </View>
