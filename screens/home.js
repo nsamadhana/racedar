@@ -19,8 +19,6 @@ export default function Home() {
       <Text>Start Button</Text>
     </TouchableOpacity>
       
-      
-      
     </View>
   );
 }

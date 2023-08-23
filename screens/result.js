@@ -1,20 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 export default function Result() {
   return (
-    <View style={styles.container}>
-      <Text>Result screen</Text>
-      <StatusBar style="auto" />
+    <View >
+      <View>
+        <Text>This is the result screen</Text>
+      </View>
+
+      <View style={styles.bannerContainer}>
+      <Image source={require('../assets/curious.png')}
+        style={styles.banner}
+        resizeMode="contain"
+      />
+    </View>
+
+    <View> 
+      <TouchableOpacity>
+        <Text>Go Home</Text>
+      </TouchableOpacity>
+    </View>
+      
+        
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  banner: {
+    height: 300,
+    width: 300
+  },
+  bannerContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center'
   },
 });

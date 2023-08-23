@@ -9,8 +9,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       {/* <Home/>  */}
-      <Quiz/>
-      {/* <Result /> */}
+      {/* <Quiz/> */}
+      <Result />
       <StatusBar style="auto" />
     </View>
   );
