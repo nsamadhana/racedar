@@ -15,8 +15,10 @@ export default function Home({navigation}) {
       />
     </View>
 
-    <TouchableOpacity onPress={()=>navigation.navigate("Quiz")}>
-      <Text>Start Button</Text>
+    <TouchableOpacity 
+    onPress={()=>navigation.navigate("Quiz")}
+    style={styles.button}>
+      <Text style={styles.buttonText}>Start</Text>
     </TouchableOpacity>
       
     </View>
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 50, 
     paddingHorizontal: 20,
+    height: '100%'
   }, 
   banner: {
     width: 400,
@@ -35,7 +38,21 @@ const styles = StyleSheet.create({
   },
   bannerContainer: {
     justifyContent: 'center', 
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1,
+  },
+  button: {
+    width: '100%', 
+    backgroundColor: '#1A759F',
+    padding: 20, 
+    borderRadius: 12, 
+    alignItems: 'center',
+    marginBottom: 36
+  }, 
+  buttonText: {
+    fontSize: 24, 
+    fontWeight: '600', 
+    color: 'white',
   }
 
 });

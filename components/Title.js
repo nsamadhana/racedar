@@ -11,7 +11,7 @@ export default function Title() {
 
 const styles = StyleSheet.create({
     titleText: {
-        fontSize: 40, 
+        fontSize: 36, 
         fontWeight: '600',
       },
     container: {
