@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    width: '100%', 
+
     backgroundColor: '#1A759F',
     padding: 12, 
     borderRadius: 12, 

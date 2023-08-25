@@ -31,8 +31,10 @@ export default function Quiz({navigation}) {
           <Text>NEXT</Text>
         </TouchableOpacity>
         
-        <TouchableOpacity onPress={()=>navigation.navigate("Result")}>
-          <Text>Go to Result</Text>
+        <TouchableOpacity
+          style={styles.resultButton}
+          onPress={()=>navigation.navigate("Result")}>
+          <Text style={styles.resultButtonText}>Go to Result</Text>
         </TouchableOpacity>
       </View>
         
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 50, 
     paddingHorizontal: 20,
-    height: '100%',
+    height: '100%'
   }, 
   top: {
     marginVertical: 16,
@@ -59,5 +61,19 @@ const styles = StyleSheet.create({
     paddingVertical: 16, 
     alignItems: 'center', 
     justifyContent: 'center'
+  }, 
+  resultButton: {
+    backgroundColor: '#1A759F',
+    padding: 12, 
+    borderRadius: 12, 
+    alignItems: 'center',
+    marginBottom: 18,
+    marginTop: 12,
+  },
+  resultButtonText: {
+    fontSize: 24, 
+    fontWeight: '600', 
+    color: 'white',
   }
-});
+
+}); 
