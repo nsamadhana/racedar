@@ -14,13 +14,41 @@ export default function Home({navigation}) {
         resizeMode="contain"
       />
     </View>
+    
 
-    <TouchableOpacity 
-    onPress={()=>navigation.navigate("Quiz")}
-    style={styles.button}>
-      <Text style={styles.buttonText}>Start</Text>
-    </TouchableOpacity>
-      
+    <View style={styles.buttonContainer}>
+      <TouchableOpacity 
+      onPress={()=>navigation.navigate("Quiz")}
+      style={styles.button}>
+        <Text style={styles.buttonText}>Black</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+      onPress={()=>navigation.navigate("Quiz")}
+      style={styles.button}>
+        <Text style={styles.buttonText}>Yellow</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+      onPress={()=>navigation.navigate("Quiz")}
+      style={styles.button}>
+        <Text style={styles.buttonText}>White</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+      onPress={()=>navigation.navigate("Quiz")}
+      style={styles.button}>
+        <Text style={styles.buttonText}>Brown 1</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+      onPress={()=>navigation.navigate("Quiz")}
+      style={styles.button}>
+        <Text style={styles.buttonText}>Brown 2</Text>
+      </TouchableOpacity>
+    </View>
+
+
     </View>
   );
 }
@@ -44,10 +72,10 @@ const styles = StyleSheet.create({
   button: {
     width: '100%', 
     backgroundColor: '#1A759F',
-    padding: 20, 
+    padding: 12, 
     borderRadius: 12, 
     alignItems: 'center',
-    marginBottom: 36
+    marginBottom: 24
   }, 
   buttonText: {
     fontSize: 24, 
