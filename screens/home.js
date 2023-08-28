@@ -70,9 +70,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-
     backgroundColor: '#1A759F',
-    padding: 12, 
+    padding: 6, 
     borderRadius: 12, 
     alignItems: 'center',
     marginBottom: 24
