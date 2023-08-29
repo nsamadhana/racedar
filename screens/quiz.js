@@ -43,17 +43,13 @@ export default function Quiz({navigation}) {
       </View>
 
       <View style={styles.bottom}> 
-
       {counter!=9 && <TouchableOpacity style={styles.nextButton} onPress={handleSubmitNext}>
           <Text style={styles.nextButtonText}>NEXT</Text>
         </TouchableOpacity> }
-        
-      
-        <TouchableOpacity
-          style={styles.resultButton}
-          onPress={()=>navigation.navigate("Result")}>
-          <Text style={styles.resultButtonText}>Go to Result</Text>
-        </TouchableOpacity>
+
+      {counter===9 && <TouchableOpacity style={styles.nextButton} onPress={()=>navigation.navigate("Result")}>
+        <Text style={styles.nextButtonText}>Go to result</Text>
+      </TouchableOpacity> }
       </View>
         
       
