@@ -1,6 +1,22 @@
 import { StyleSheet, Text, View, TouchableOpacity, Touchable} from 'react-native';
+import { useState } from 'react';
 
 export default function Quiz({navigation}) {
+  const [images, setImages] = useState(); 
+  const [counter, setCounter] = useState(0);
+  const black = ["Sudanese", "Nigerian", "Ethiopian", "Kenyan"]
+
+  //Retrieve an image from the assets folder
+  const getImages = async () => {
+    
+  };
+
+  //Handle submission of the next buton 
+  const handleSubmitNext=()=>{
+    console.log("Entering handleSubmitNext")
+    setCounter(counter+1)
+  };
+
   return (
     <View style={styles.container}>
 
@@ -27,10 +43,12 @@ export default function Quiz({navigation}) {
       </View>
 
       <View style={styles.bottom}> 
-        <TouchableOpacity style={styles.nextButton}>
+
+      {counter!=9 && <TouchableOpacity style={styles.nextButton} onPress={handleSubmitNext}>
           <Text style={styles.nextButtonText}>NEXT</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> }
         
+      
         <TouchableOpacity
           style={styles.resultButton}
           onPress={()=>navigation.navigate("Result")}>
