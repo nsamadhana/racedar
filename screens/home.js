@@ -1,9 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Title from '../components/Title';
+import {useState} from 'react';
 
 
 export default function Home({navigation}) {
+
+  const handlePress = () => {
+    console.log("Selected a color on the home screen")
+    navigation.navigate("Quiz", {
+      // Need to dynamically populate this color variable 
+      color: "black"
+    });
+  }
+
   return (
     <View style={styles.container}>
     <Title/>
@@ -18,7 +27,7 @@ export default function Home({navigation}) {
 
     <View style={styles.buttonContainer}>
       <TouchableOpacity 
-      onPress={()=>navigation.navigate("Quiz")}
+      onPress={()=>handlePress()}
       style={styles.button}>
         <Text style={styles.buttonText}>Black</Text>
       </TouchableOpacity>

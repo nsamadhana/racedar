@@ -1,20 +1,22 @@
 import { StyleSheet, Text, View, TouchableOpacity, Touchable} from 'react-native';
+import { useRoute } from "@react-navigation/native"
 import { useState } from 'react';
 
-export default function Quiz({navigation}) {
-  const [images, setImages] = useState(); 
-  const [counter, setCounter] = useState(0);
-  const black = ["Sudanese", "Nigerian", "Ethiopian", "Kenyan"]
 
-  //Retrieve an image from the assets folder
-  const getImages = async () => {
-    
-  };
+export default function Quiz({navigation}) {
+  const [counter, setCounter] = useState(0);
 
   //Handle submission of the next buton 
   const handleSubmitNext=()=>{
-    console.log("Entering handleSubmitNext")
     setCounter(counter+1)
+    console.log("Entering handleSubmitNext with counter value: " + counter)
+  };
+
+  //Gets the color selected from the home screen
+  const getColor=()=>{
+    const route = useRoute();
+    const color = route.params?.color; 
+    console.log("User selected: " + color);
   };
 
   return (
