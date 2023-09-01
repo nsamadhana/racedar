@@ -76,7 +76,7 @@ export default function Home({navigation}) {
       <TouchableOpacity 
       onPress={()=>handleBrown2Press()}
       style={styles.button}>
-        <Text style={styles.buttonText}>Brown 2</Text>
+        <Text style={styles.buttonText}>Brown2</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
