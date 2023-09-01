@@ -5,11 +5,40 @@ import {useState} from 'react';
 
 export default function Home({navigation}) {
 
-  const handlePress = () => {
-    console.log("Selected a color on the home screen")
+  // Refactor this in the future to dynamically set color/options in one function 
+  // This is shitty code
+  const handleBlackPress = () => {
     navigation.navigate("Quiz", {
-      // Need to dynamically populate this color variable 
-      color: "black"
+      color: "black",
+      options: ["Nigeria", "Ethiopia", "Kenya", "Sudan "]
+    });
+  }
+
+  const handleYellowPress = () => {
+    navigation.navigate("Quiz", {
+      color: "yellow",
+      options: ["China", "Japan", "Korea", "Vietnam"]
+    });
+  }
+
+  const handleBrown1Press = () => {
+    navigation.navigate("Quiz", {
+      color: "brown1",
+      options: ["India", "Pakistan", "Iraq", "Afghanistan"]
+    });
+  }
+
+  const handleBrown2Press = () => {
+    navigation.navigate("Quiz", {
+      color: "brown2",
+      options: ["Mexico", "Brazil", "Argentina", "Columbia"]
+    });
+  }
+
+  const handleWhitePress = () => {
+    navigation.navigate("Quiz", {
+      color: "white",
+      options: ["Britain", "France", "Russia", "Germany"]
     });
   }
 
@@ -27,33 +56,33 @@ export default function Home({navigation}) {
 
     <View style={styles.buttonContainer}>
       <TouchableOpacity 
-      onPress={()=>handlePress()}
+      onPress={()=>handleBlackPress()}
       style={styles.button}>
         <Text style={styles.buttonText}>Black</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
-      onPress={()=>navigation.navigate("Quiz")}
+      onPress={()=>handleYellowPress()}
       style={styles.button}>
         <Text style={styles.buttonText}>Yellow</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
-      onPress={()=>navigation.navigate("Quiz")}
+      onPress={()=>handleBrown1Press()}
       style={styles.button}>
-        <Text style={styles.buttonText}>White</Text>
+        <Text style={styles.buttonText}>Brown1</Text>
       </TouchableOpacity>
 
       <TouchableOpacity 
-      onPress={()=>navigation.navigate("Quiz")}
-      style={styles.button}>
-        <Text style={styles.buttonText}>Brown 1</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity 
-      onPress={()=>navigation.navigate("Quiz")}
+      onPress={()=>handleBrown2Press()}
       style={styles.button}>
         <Text style={styles.buttonText}>Brown 2</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+      onPress={()=>handleWhitePress()}
+      style={styles.button}>
+        <Text style={styles.buttonText}>White</Text>
       </TouchableOpacity>
     </View>
 

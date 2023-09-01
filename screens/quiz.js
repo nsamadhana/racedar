@@ -6,18 +6,21 @@ import { useState } from 'react';
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
 
-  //Handle submission of the next buton 
+  // Handle submission of the next buton 
   const handleSubmitNext=()=>{
     setCounter(counter+1)
     console.log("Entering handleSubmitNext with counter value: " + counter)
   };
 
-  //Gets the color selected from the home screen
-  const getColor=()=>{
-    const route = useRoute();
-    const color = route.params?.color; 
-    console.log("User selected: " + color);
-  };
+  // Gets the color selected from the home screen
+  //Stack overflow post: https://stackoverflow.com/questions/74188240/passing-data-to-other-screens-in-react-native
+  // Maybe put this in a function dummy
+  const route = useRoute();
+  const color = route.params?.color; 
+  const options = route.params?.options;
+  console.log("User selected: " + color + " mode");
+  console.log(color + " options are: " + options[0]);
+
 
   return (
     <View style={styles.container}>
@@ -28,19 +31,19 @@ export default function Quiz({navigation}) {
 
       <View style={styles.options}> 
         <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>Option 1</Text>
+          <Text style={styles.option}>{options[0]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>Option 2</Text>
+          <Text style={styles.option}>{options[1]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>Option 3</Text>
+          <Text style={styles.option}>{options[2]}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>Option 4</Text>
+          <Text style={styles.option}>{options[3]}</Text>
         </TouchableOpacity>
       </View>
 
