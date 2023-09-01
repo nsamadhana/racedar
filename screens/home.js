@@ -1,6 +1,5 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Title from '../components/Title';
-import {useState} from 'react';
 
 
 export default function Home({navigation}) {

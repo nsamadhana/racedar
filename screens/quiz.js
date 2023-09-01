@@ -1,16 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity, Touchable} from 'react-native';
 import { useRoute } from "@react-navigation/native"
 import { useState } from 'react';
+import { blackImageURLs, blackEthnicity } from "../images/black.js";
 
 
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
-
-  // Handle submission of the next buton 
-  const handleSubmitNext=()=>{
-    setCounter(counter+1)
-    console.log("Entering handleSubmitNext with counter value: " + counter)
-  };
 
   // Gets the color selected from the home screen
   //Stack overflow post: https://stackoverflow.com/questions/74188240/passing-data-to-other-screens-in-react-native
@@ -18,9 +13,19 @@ export default function Quiz({navigation}) {
   const route = useRoute();
   const color = route.params?.color; 
   const options = route.params?.options;
-  console.log("User selected: " + color + " mode");
-  console.log(color + " options are: " + options[0]);
 
+  console.log(blackImageURLs + " " + blackEthnicity);
+
+  //Determines which image url to render 
+  const displayImage=(color)=>{
+
+
+  }
+
+  // Handle submission of the next buton 
+  const handleSubmitNext=()=>{
+    setCounter(counter+1)
+  };
 
   return (
     <View style={styles.container}>
