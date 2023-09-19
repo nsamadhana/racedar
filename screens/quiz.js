@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity, Touchable} from 'react-native';
 import { useRoute } from "@react-navigation/native"
 import { useState } from 'react';
-import { blackImageURLs, blackEthnicity } from "../images/black.js";
 
 
 export default function Quiz({navigation}) {
@@ -11,16 +10,8 @@ export default function Quiz({navigation}) {
   //Stack overflow post: https://stackoverflow.com/questions/74188240/passing-data-to-other-screens-in-react-native
   // Maybe put this in a function dummy
   const route = useRoute();
-  const color = route.params?.color; 
   const options = route.params?.options;
 
-  console.log(blackImageURLs + " " + blackEthnicity);
-
-  //Determines which image url to render 
-  const displayImage=(color)=>{
-
-
-  }
 
   // Handle submission of the next buton 
   const handleSubmitNext=()=>{
