@@ -1,7 +1,51 @@
 import { StyleSheet, Text, View, TouchableOpacity, Touchable} from 'react-native';
 import { useRoute } from "@react-navigation/native"
 import { useState } from 'react';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc, getDocs} from "firebase/firestore"; 
 
+
+
+// Initialize Firebase with your project config
+const firebaseConfig = {
+  apiKey: 'AIzaSyBu_pvGVemZGaPAOhz39eoPcfpSFK2SKp0',
+  authDomain: 'YOUR_AUTH_DOMAIN',
+  projectId: 'racedar-60157',
+  storageBucket: 'racedar-60157.appspot.com',
+  messagingSenderId: '282688212196',
+  appId: '1:282688212196:ios:cd3c86e8fbb48aa40eb0f1',
+};
+
+//Initialize firebase app
+const app = initializeApp(firebaseConfig);
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+//Uploads data to firestore 
+async function addDocumentToFireStore() {
+  try {
+    const docRef = await addDoc(collection(db, "Images"), {
+      genre: "black",
+      name: "Alek Wek",
+      url: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Alek_Wek%2C_Red_Dress_Collection_2007.jpg"
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+//Retrieves data from firestore 
+async function getDocumentFromFireStore() {
+  const querySnapshot = await getDocs(collection(db, "Images"));
+  querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${doc.data().url}`);
+  });
+}
+
+getDocumentFromFireStore(); 
 
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
@@ -17,6 +61,7 @@ export default function Quiz({navigation}) {
   const handleSubmitNext=()=>{
     setCounter(counter+1)
   };
+
 
   return (
     <View style={styles.container}>
