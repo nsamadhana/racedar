@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, Touchable} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Touchable, Image} from 'react-native';
 import { useRoute } from "@react-navigation/native"
 import { useState } from 'react';
 import { initializeApp } from "firebase/app";
@@ -69,8 +69,11 @@ export default function Quiz({navigation}) {
   return (
     <View style={styles.container}>
 
-      <View style={styles.top}>
-        <Text style={styles.topText}>Imagine this is an image</Text>
+      <View style={styles.imageContainer}>
+      <Image 
+      style = {styles.image} 
+      source={require('../assets/uncle_Ruckus.png')}>
+      </Image>
       </View>
 
       <View style={styles.options}> 
@@ -168,5 +171,17 @@ const styles = StyleSheet.create({
     fontWeight: '600', 
     color: 'white',
   }, 
+  image: {
+    width: 400, 
+    height: 400,
+    resizeMode : "contain"
+  },
+  imageContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+    flex: 1,
+    paddingTop: 50,
+    paddingBottom: 50,
+  }
 
 }); 
