@@ -38,14 +38,14 @@ async function addDocumentToFireStore() {
 }
 
 //Retrieves data from firestore 
-async function getDocumentFromFireStore() {
+async function getDocumentsFromFireStore() {
   const querySnapshot = await getDocs(collection(db, "Images"));
   querySnapshot.forEach((doc) => {
     console.log(`${doc.id} => ${doc.data().url}`);
   });
 }
 
-getDocumentFromFireStore(); 
+
 
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
@@ -60,7 +60,10 @@ export default function Quiz({navigation}) {
   // Handle submission of the next buton 
   const handleSubmitNext=()=>{
     setCounter(counter+1)
+
   };
+
+  // TODO: Create function to update image url every time the next button is called
 
 
   return (
