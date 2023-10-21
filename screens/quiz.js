@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View, TouchableOpacity, Touchable, Image} from 'react-native';
 import { useRoute } from "@react-navigation/native"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc, getDocs} from "firebase/firestore"; 
-
 
 
 // Initialize Firebase with your project config
@@ -16,12 +15,6 @@ const firebaseConfig = {
   messagingSenderId: '282688212196',
   appId: '1:282688212196:ios:cd3c86e8fbb48aa40eb0f1',
 };
-
-//Initialize firebase app
-const app = initializeApp(firebaseConfig);
-
-// Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
 
 //Uploads data to firestore 
 async function addDocumentToFireStore() {
@@ -37,18 +30,48 @@ async function addDocumentToFireStore() {
   }
 }
 
-//Retrieves data from firestore 
-async function getDocumentsFromFireStore() {
-  const querySnapshot = await getDocs(collection(db, "Images"));
+
+/* 
+Retrieves data within a collection 
+param: collectionName 
+returns a list of image URLs 
+*/ 
+async function getDocumentsFromFireStore(collectionName) {
+  const querySnapshot = await getDocs(collection(db, collectionName));
+  const urls = [];
   querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data().url}`);
+    urls.push(`${doc.data().url}`);
+    //console.log(`${doc.data().url}`);
   });
+
+  return urls; 
 }
 
+  //Initialize firebase app/firestore, and get a reference to the server
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
 
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
+  const [imageUrls, setImageUrls] = useState([]); 
+
+  // Retrieving image URLs is an async operation so we must await 
+  useEffect(() => {
+    // Use an effect to fetch the image URLs when the component mounts
+    const fetchData = async () => {
+      const urls = await getDocumentsFromFireStore("Images");
+      setImageUrls(urls);
+    };
+    fetchData();
+  }, []);
+  console.log(imageUrls);
+
+  // Handle submission of the next buton 
+  const handleSubmitNext=()=>{
+    setCounter(counter+1)
+
+  };
 
   // Gets the color selected from the home screen
   //Stack overflow post: https://stackoverflow.com/questions/74188240/passing-data-to-other-screens-in-react-native
@@ -56,12 +79,11 @@ export default function Quiz({navigation}) {
   const route = useRoute();
   const options = route.params?.options;
 
+  //Retrieve all the images --> Asynchronous function needs an await or we just print an empty list you dummy 
 
-  // Handle submission of the next buton 
-  const handleSubmitNext=()=>{
-    setCounter(counter+1)
+  
 
-  };
+  
 
   // TODO: Create function to update image url every time the next button is called
 
