@@ -55,22 +55,34 @@ async function getDocumentsFromFireStore(collectionName) {
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
   const [imageUrls, setImageUrls] = useState([]); 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+  const [currentImageUrl, setCurrentImageUrl] = useState(0); 
 
   // Retrieving image URLs is an async operation so we must await 
   useEffect(() => {
-    // Use an effect to fetch the image URLs when the component mounts
+    // Use an effect to fetch the list of image URLs when the component mounts
     const fetchData = async () => {
       const urls = await getDocumentsFromFireStore("Images");
       setImageUrls(urls);
+      setCurrentImageUrl(urls[currentImageIndex]); 
     };
     fetchData();
-  }, []);
+  }, [currentImageIndex]);
   console.log(imageUrls);
+
+
+  const handleNextImage = () => {
+    if (currentImageIndex + 1 < imageUrls.length) {
+      setCurrentImageIndex(currentImageIndex + 1); 
+    }else {
+      setCurrentImageIndex(0);
+    }
+  }
 
   // Handle submission of the next buton 
   const handleSubmitNext=()=>{
     setCounter(counter+1)
-
+    handleNextImage(); 
   };
 
   // Gets the color selected from the home screen
@@ -79,13 +91,6 @@ export default function Quiz({navigation}) {
   const route = useRoute();
   const options = route.params?.options;
 
-  //Retrieve all the images --> Asynchronous function needs an await or we just print an empty list you dummy 
-
-  
-
-  
-
-  // TODO: Create function to update image url every time the next button is called
 
 
   return (
@@ -94,7 +99,7 @@ export default function Quiz({navigation}) {
       <View style={styles.imageContainer}>
       <Image 
       style = {styles.image} 
-      source={require('../assets/uncle_Ruckus.png')}>
+      source={{ uri: currentImageUrl }}>
       </Image>
       </View>
 
