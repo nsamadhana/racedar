@@ -63,7 +63,7 @@ export default function Quiz({navigation}) {
   useEffect(() => {
     // Use an effect to fetch the list of image URLs when the component mounts
     const fetchData = async () => {
-      const imageObjects = await getDocumentsFromFireStore("Images");
+      const imageObjects = await getDocumentsFromFireStore(route.params.color);
       setImageObjects(imageObjects);
       setCurrentImageUrl(imageObjects[currentImageIndex].url); 
     };
@@ -71,6 +71,7 @@ export default function Quiz({navigation}) {
   }, [currentImageIndex]);
 
 
+  // Increments the current image index or sets it back to 0
   const handleNextImage = () => {
     if (currentImageIndex + 1 < imageUrls.length) {
       setCurrentImageIndex(currentImageIndex + 1); 
@@ -90,7 +91,6 @@ export default function Quiz({navigation}) {
   // Maybe put this in a function dummy
   const route = useRoute();
   const options = route.params?.options;
-
 
 
   return (
