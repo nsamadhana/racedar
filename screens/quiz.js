@@ -39,12 +39,13 @@ returns a list of image URLs
 async function getDocumentsFromFireStore(collectionName) {
   const querySnapshot = await getDocs(collection(db, collectionName));
   const urls = [];
+  const imageData = []; 
   querySnapshot.forEach((doc) => {
     urls.push(`${doc.data().url}`);
-    //console.log(`${doc.data().url}`);
+    imageData.push(doc.data());
   });
 
-  return urls; 
+  return imageData; 
 }
 
   //Initialize firebase app/firestore, and get a reference to the server
@@ -54,7 +55,7 @@ async function getDocumentsFromFireStore(collectionName) {
 
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
-  const [imageUrls, setImageUrls] = useState([]); 
+  const [imageUrls, setImageObjects] = useState([]); 
   const [currentImageIndex, setCurrentImageIndex] = useState(0); 
   const [currentImageUrl, setCurrentImageUrl] = useState(0); 
 
@@ -62,13 +63,12 @@ export default function Quiz({navigation}) {
   useEffect(() => {
     // Use an effect to fetch the list of image URLs when the component mounts
     const fetchData = async () => {
-      const urls = await getDocumentsFromFireStore("Images");
-      setImageUrls(urls);
-      setCurrentImageUrl(urls[currentImageIndex]); 
+      const imageObjects = await getDocumentsFromFireStore("Images");
+      setImageObjects(imageObjects);
+      setCurrentImageUrl(imageObjects[currentImageIndex].url); 
     };
     fetchData();
   }, [currentImageIndex]);
-  console.log(imageUrls);
 
 
   const handleNextImage = () => {
