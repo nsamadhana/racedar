@@ -6,22 +6,6 @@ import { getFirestore } from "firebase/firestore";
 import firebaseConfig from '../firebaseConfig.js';
 import { collection, addDoc, getDocs} from "firebase/firestore"; 
 
-
-//Uploads data to firestore 
-async function addDocumentToFireStore() {
-  try {
-    const docRef = await addDoc(collection(db, "Images"), {
-      genre: "black",
-      name: "Alek Wek",
-      url: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Alek_Wek%2C_Red_Dress_Collection_2007.jpg"
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
-
-
 /* 
 Retrieves data within a collection 
 param: collectionName 
@@ -49,6 +33,7 @@ export default function Quiz({navigation}) {
   const [imageUrls, setImageObjects] = useState([]); 
   const [currentImageIndex, setCurrentImageIndex] = useState(0); 
   const [currentImageUrl, setCurrentImageUrl] = useState(0); 
+  const [optionClick, setOptionClick] = useState(0);
 
   // Retrieving image URLs is an async operation so we must await 
   useEffect(() => {
