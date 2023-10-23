@@ -3,18 +3,9 @@ import { useRoute } from "@react-navigation/native"
 import { useState, useEffect } from 'react';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import firebaseConfig from '../firebaseConfig.js';
 import { collection, addDoc, getDocs} from "firebase/firestore"; 
 
-
-// Initialize Firebase with your project config
-const firebaseConfig = {
-  apiKey: 'AIzaSyBu_pvGVemZGaPAOhz39eoPcfpSFK2SKp0',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'racedar-60157',
-  storageBucket: 'racedar-60157.appspot.com',
-  messagingSenderId: '282688212196',
-  appId: '1:282688212196:ios:cd3c86e8fbb48aa40eb0f1',
-};
 
 //Uploads data to firestore 
 async function addDocumentToFireStore() {
@@ -38,10 +29,10 @@ returns a list of image URLs
 */ 
 async function getDocumentsFromFireStore(collectionName) {
   const querySnapshot = await getDocs(collection(db, collectionName));
+  //console.log(querySnapshot);
   const urls = [];
   const imageData = []; 
   querySnapshot.forEach((doc) => {
-    urls.push(`${doc.data().url}`);
     imageData.push(doc.data());
   });
 
@@ -64,6 +55,7 @@ export default function Quiz({navigation}) {
     // Use an effect to fetch the list of image URLs when the component mounts
     const fetchData = async () => {
       const imageObjects = await getDocumentsFromFireStore(route.params.color);
+
       setImageObjects(imageObjects);
       setCurrentImageUrl(imageObjects[currentImageIndex].url); 
     };
@@ -209,6 +201,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingBottom: 50,
+
   }
 
 }); 
