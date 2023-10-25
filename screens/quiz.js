@@ -28,12 +28,37 @@ async function getDocumentsFromFireStore(collectionName) {
   const db = getFirestore(app);
 
 
+  function EthnicityButton({ ethnicity, setSelectedEthnicity, selectedEthnicity }) {
+    return (
+      <TouchableOpacity
+        onPress={() => setSelectedEthnicity(ethnicity)}
+        style={{
+          backgroundColor: selectedEthnicity === ethnicity ? '#34A0A4' : 'gray',
+          paddingVertical: 12,
+          marginVertical: 12,
+          paddingHorizontal: 12,
+          borderRadius: 12, 
+        }}
+      >
+        <Text style={styles.nextButtonText}>{ethnicity}</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  // param
+  function cleanString(cleanMe) {
+    return cleanMe.trim().toUpperCase(); 
+  }
+
+  
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
   const [imageUrls, setImageObjects] = useState([]); 
   const [currentImageIndex, setCurrentImageIndex] = useState(0); 
   const [currentImageUrl, setCurrentImageUrl] = useState(0); 
-  const [optionClick, setOptionClick] = useState(0);
+  const [currentImageEthnicity, setCurrentImageEthnicity] = useState(null);
+  const [selectedEthnicity, setSelectedEthnicity] = useState(null);
+  const [userScore, setUserScore] = useState(0);
 
   // Retrieving image URLs is an async operation so we must await 
   useEffect(() => {
@@ -43,6 +68,7 @@ export default function Quiz({navigation}) {
 
       setImageObjects(imageObjects);
       setCurrentImageUrl(imageObjects[currentImageIndex].url); 
+      setCurrentImageEthnicity(imageObjects[currentImageIndex].ethnicity);
     };
     fetchData();
   }, [currentImageIndex]);
@@ -59,6 +85,17 @@ export default function Quiz({navigation}) {
 
   // Handle submission of the next buton 
   const handleSubmitNext=()=>{
+    const cleanSelectedEthnicity = cleanString(selectedEthnicity);
+    const cleanCurrentImageEthnicity = cleanString(currentImageEthnicity); 
+
+    if (cleanSelectedEthnicity == cleanCurrentImageEthnicity) {
+      setUserScore(userScore+1);
+      console.log("CORRECT GUESSS");
+    } else {
+      console.log("INCORRECT GUESS");
+    }
+    console.log("current score: ", userScore);
+    console.log(cleanSelectedEthnicity, cleanCurrentImageEthnicity);
     setCounter(counter+1)
     handleNextImage(); 
   };
@@ -81,21 +118,31 @@ export default function Quiz({navigation}) {
       </View>
 
       <View style={styles.options}> 
-        <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>{options[0]}</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>{options[1]}</Text>
-        </TouchableOpacity>
+        <EthnicityButton style ={styles.optionButton}
+          ethnicity={options[0]}
+          setSelectedEthnicity={setSelectedEthnicity}
+          selectedEthnicity={selectedEthnicity}
+        />
 
-        <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>{options[2]}</Text>
-        </TouchableOpacity>
+        <EthnicityButton style ={styles.optionButton}
+          ethnicity={options[1]}
+          setSelectedEthnicity={setSelectedEthnicity}
+          selectedEthnicity={selectedEthnicity}
+        />
+        
+        <EthnicityButton style ={styles.optionButton}
+          ethnicity={options[2]}
+          setSelectedEthnicity={setSelectedEthnicity}
+          selectedEthnicity={selectedEthnicity}
+        />
 
-        <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.option}>{options[3]}</Text>
-        </TouchableOpacity>
+        <EthnicityButton style ={styles.optionButton}
+          ethnicity={options[3]}
+          setSelectedEthnicity={setSelectedEthnicity}
+          selectedEthnicity={selectedEthnicity}
+        />
+
       </View>
 
       <View style={styles.bottom}> 
@@ -135,14 +182,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'white'
   },
-  optionButton: {
-    paddingVertical: 12,
-    marginVertical: 12,
-    backgroundColor: '#34A0A4',
-    paddingHorizontal: 12,
-    borderRadius: 12, 
 
-  }, 
   bottom: {
     marginBottom: 12, 
     paddingVertical: 16, 
