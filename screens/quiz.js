@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import firebaseConfig from '../firebaseConfig.js';
-import { collection, addDoc, getDocs} from "firebase/firestore"; 
+import { collection, getDocs} from "firebase/firestore"; 
 
 /* 
 Retrieves data within a collection 
@@ -40,7 +40,7 @@ async function getDocumentsFromFireStore(collectionName) {
           borderRadius: 12, 
         }}
       >
-        <Text style={styles.nextButtonText}>{ethnicity}</Text>
+        <Text style={styles.checkButtonText}>{ethnicity}</Text>
       </TouchableOpacity>
     );
   }
@@ -75,7 +75,7 @@ export default function Quiz({navigation}) {
 
 
   // Increments the current image index or sets it back to 0
-  const handleNextImage = () => {
+  const handleImageIndex= () => {
     if (currentImageIndex + 1 < imageUrls.length) {
       setCurrentImageIndex(currentImageIndex + 1); 
     }else {
@@ -84,20 +84,19 @@ export default function Quiz({navigation}) {
   }
 
   // Handle submission of the next buton 
-  const handleSubmitNext=()=>{
+  // Checks if 
+  const handleSubmitCheck=()=>{
     const cleanSelectedEthnicity = cleanString(selectedEthnicity);
     const cleanCurrentImageEthnicity = cleanString(currentImageEthnicity); 
 
     if (cleanSelectedEthnicity == cleanCurrentImageEthnicity) {
       setUserScore(userScore+1);
-      console.log("CORRECT GUESSS");
-    } else {
-      console.log("INCORRECT GUESS");
-    }
-    console.log("current score: ", userScore);
-    console.log(cleanSelectedEthnicity, cleanCurrentImageEthnicity);
+    } 
     setCounter(counter+1)
-    handleNextImage(); 
+    handleImageIndex(); 
+
+    //Sets the check button back to grey 
+    setSelectedEthnicity(null);
   };
 
   // Gets the color selected from the home screen
@@ -146,13 +145,27 @@ export default function Quiz({navigation}) {
       </View>
 
       <View style={styles.bottom}> 
-      {counter!=9 && <TouchableOpacity style={styles.nextButton} onPress={handleSubmitNext}>
-          <Text style={styles.nextButtonText}>NEXT</Text>
+        <View style={styles.scoreContainer}>
+
+        {counter !== 10 && (
+          <TouchableOpacity
+            style={[
+              styles.checkButton,
+              selectedEthnicity ? {} : { backgroundColor: 'gray' }, // Disable button if no ethnicity is selected
+            ]}
+            onPress={selectedEthnicity ? handleSubmitCheck : null}
+          >
+            <Text style={styles.checkButtonText}>CHECK</Text>
+          </TouchableOpacity>
+        )}
+        {counter===10 && <TouchableOpacity style={styles.checkButton} onPress={()=>navigation.navigate("Result")}>
+          <Text style={styles.checkButtonText}>See Results</Text>
         </TouchableOpacity> }
 
-      {counter===9 && <TouchableOpacity style={styles.nextButton} onPress={()=>navigation.navigate("Result")}>
-        <Text style={styles.nextButtonText}>Go to result</Text>
-      </TouchableOpacity> }
+        <Text style = {styles.score}>{userScore}/10</Text>
+
+        </View>
+
       </View>
         
       
@@ -187,8 +200,15 @@ const styles = StyleSheet.create({
     marginBottom: 12, 
     paddingVertical: 16, 
     alignItems: 'center', 
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   }, 
+  scoreContainer: {
+    flexDirection: 'row', // Arrange items horizontally
+    alignItems: 'center', // Center items vertically
+    justifyContent: 'space-between', // Create space between the items
+    margin: 12,
+  },
   resultButton: {
     backgroundColor: '#1A759F',
     padding: 12, 
@@ -202,7 +222,7 @@ const styles = StyleSheet.create({
     fontWeight: '600', 
     color: 'white',
   },
-  nextButton: {
+  checkButton: {
     backgroundColor: '#1A759F',
     padding: 12, 
     borderRadius: 12, 
@@ -210,15 +230,24 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginTop: 12,
   }, 
-  nextButtonText : {
+  checkButtonText : {
     fontSize: 24, 
     fontWeight: '600', 
     color: 'white',
   }, 
+  score : {
+    fontSize: 48, 
+    fontWeight: '500', 
+    color: 'black',
+    paddingHorizontal: 24,
+  }, 
   image: {
-    width: 400, 
-    height: 400,
-    resizeMode : "contain"
+    width: 300, 
+    height: 300,
+    resizeMode : "contain",
+    borderWidth: 7, 
+    borderColor: 'black',
+    borderRadius:12,
   },
   imageContainer: {
     justifyContent: 'center', 
@@ -226,7 +255,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 50,
     paddingBottom: 50,
-
+    
   }
-
 }); 
