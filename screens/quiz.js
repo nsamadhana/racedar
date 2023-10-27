@@ -55,7 +55,7 @@ export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
   const [imageUrls, setImageObjects] = useState([]); 
   const [currentImageIndex, setCurrentImageIndex] = useState(0); 
-  const [currentImageUrl, setCurrentImageUrl] = useState(0); 
+  const [currentImageUrl, setCurrentImageUrl] = useState(''); 
   const [currentImageEthnicity, setCurrentImageEthnicity] = useState(null);
   const [selectedEthnicity, setSelectedEthnicity] = useState(null);
   const [userScore, setUserScore] = useState(0);
@@ -65,8 +65,12 @@ export default function Quiz({navigation}) {
     // Use an effect to fetch the list of image URLs when the component mounts
     const fetchData = async () => {
       const imageObjects = await getDocumentsFromFireStore(route.params.color);
-
+      const imageUrl = imageObjects[currentImageIndex].url;
       setImageObjects(imageObjects);
+
+      if (typeof imageUrl != 'string' && imageUrl.trim() != '') {
+        console.log("ERROR: INVALID IMAGEURL", imageUrl); 
+      }
       setCurrentImageUrl(imageObjects[currentImageIndex].url); 
       setCurrentImageEthnicity(imageObjects[currentImageIndex].ethnicity);
     };
@@ -110,10 +114,13 @@ export default function Quiz({navigation}) {
     <View style={styles.container}>
 
       <View style={styles.imageContainer}>
-      <Image 
+
+      {currentImageUrl &&  (<Image 
       style = {styles.image} 
       source={{ uri: currentImageUrl }}>
       </Image>
+      )}
+
       </View>
 
       <View style={styles.options}> 
