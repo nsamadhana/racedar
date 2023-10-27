@@ -28,6 +28,7 @@ async function getDocumentsFromFireStore(collectionName) {
   const db = getFirestore(app);
 
 
+  //Sets the ethnicity button to gray by default, turqoise when selected
   function EthnicityButton({ ethnicity, setSelectedEthnicity, selectedEthnicity }) {
     return (
       <TouchableOpacity
@@ -45,9 +46,24 @@ async function getDocumentsFromFireStore(collectionName) {
     );
   }
 
-  // param
+  //Removes whitespace and makes string uppercase 
   function cleanString(cleanMe) {
     return cleanMe.trim().toUpperCase(); 
+  }
+
+  //Shuffles an array using Fisher Yates algorithm 
+  function shuffleArray(array) {
+    const newArray = [...array]; // Create a copy of the original array
+  
+    for (let i = newArray.length - 1; i > 0; i--) {
+      // Generate a random index between 0 and i (inclusive)
+      const j = Math.floor(Math.random() * (i + 1));
+  
+      // Swap elements at i and j
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+  
+    return newArray;
   }
 
   
@@ -66,11 +82,8 @@ export default function Quiz({navigation}) {
     const fetchData = async () => {
       const imageObjects = await getDocumentsFromFireStore(route.params.color);
       const imageUrl = imageObjects[currentImageIndex].url;
-      setImageObjects(imageObjects);
 
-      if (typeof imageUrl != 'string' && imageUrl.trim() != '') {
-        console.log("ERROR: INVALID IMAGEURL", imageUrl); 
-      }
+      setImageObjects(imageObjects);
       setCurrentImageUrl(imageObjects[currentImageIndex].url); 
       setCurrentImageEthnicity(imageObjects[currentImageIndex].ethnicity);
     };
