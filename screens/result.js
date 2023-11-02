@@ -33,14 +33,14 @@ export default function Result({navigation}) {
       />
 
       <View>
-      <Text>Boy you scored a whopping {finalScore}/10</Text>
-      <Text>{message}</Text>
+      <Text style={styles.scoreText}>You scored {finalScore}/10</Text>
+      <Text style={styles.message}>{message}</Text>
       </View>
     </View>
 
     <View> 
-      <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
-        <Text style={styles.return}>Go Home</Text>
+      <TouchableOpacity style = {styles.goHomeButton} onPress={()=>navigation.navigate("Home")}>
+        <Text style={styles.goHome}>Go Home</Text>
       </TouchableOpacity>
     </View>
       
@@ -62,9 +62,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center'
   },
-  return: {
+  scoreText: {
+    fontSize: 24, 
+    fontWeight: '600',    
+    marginBottom: 12
+  },
+  message: {
+    fontSize: 24, 
+    fontWeight: '600', 
+    marginBottom: 12
+  },
+  goHomeButton: {
+    backgroundColor: '#1A759F',
+    padding: 12, 
+    borderRadius: 12, 
+    alignItems: 'center',
+    marginBottom: 12,
+    marginTop: 12,
+  }, 
+  goHome: {
     paddingHorizontal: 24, 
     fontSize: 24, 
-    fontWeight: '600'
+    fontWeight: '600',
+    color:'white'
   },
 });
