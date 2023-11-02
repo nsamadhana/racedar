@@ -13,7 +13,6 @@ returns a list of image URLs
 */ 
 async function getDocumentsFromFireStore(collectionName) {
   const querySnapshot = await getDocs(collection(db, collectionName));
-  //console.log(querySnapshot);
   const urls = [];
   const imageData = []; 
   querySnapshot.forEach((doc) => {
@@ -51,21 +50,6 @@ async function getDocumentsFromFireStore(collectionName) {
     return cleanMe.trim().toUpperCase(); 
   }
 
-  //Shuffles an array using Fisher Yates algorithm 
-  function shuffleArray(array) {
-    const newArray = [...array]; // Create a copy of the original array
-  
-    for (let i = newArray.length - 1; i > 0; i--) {
-      // Generate a random index between 0 and i (inclusive)
-      const j = Math.floor(Math.random() * (i + 1));
-  
-      // Swap elements at i and j
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-  
-    return newArray;
-  }
-
   
 export default function Quiz({navigation}) {
   const [counter, setCounter] = useState(0);
@@ -75,6 +59,7 @@ export default function Quiz({navigation}) {
   const [currentImageEthnicity, setCurrentImageEthnicity] = useState(null);
   const [selectedEthnicity, setSelectedEthnicity] = useState(null);
   const [userScore, setUserScore] = useState(0);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 
   // Retrieving image URLs is an async operation so we must await 
   useEffect(() => {
@@ -101,14 +86,17 @@ export default function Quiz({navigation}) {
   }
 
   // Handle submission of the next buton 
-  // Checks if 
   const handleSubmitCheck=()=>{
     const cleanSelectedEthnicity = cleanString(selectedEthnicity);
     const cleanCurrentImageEthnicity = cleanString(currentImageEthnicity); 
 
+    //Increment score if user guesses correctly
     if (cleanSelectedEthnicity == cleanCurrentImageEthnicity) {
+      setIsCorrectAnswer(true);
       setUserScore(userScore+1);
     } 
+
+    //Increment image counter 
     setCounter(counter+1)
     handleImageIndex(); 
 
@@ -178,7 +166,7 @@ export default function Quiz({navigation}) {
             <Text style={styles.checkButtonText}>CHECK</Text>
           </TouchableOpacity>
         )}
-        {counter===10 && <TouchableOpacity style={styles.checkButton} onPress={()=>navigation.navigate("Result")}>
+        {counter===10 && <TouchableOpacity style={styles.checkButton} onPress={()=>navigation.navigate("Result", {userScore})}>
           <Text style={styles.checkButtonText}>See Results</Text>
         </TouchableOpacity> }
 
@@ -253,7 +241,7 @@ const styles = StyleSheet.create({
   checkButtonText : {
     fontSize: 24, 
     fontWeight: '600', 
-    color: 'white',
+    color: 'white', 
   }, 
   score : {
     fontSize: 48, 
@@ -262,12 +250,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   }, 
   image: {
-    width: 300, 
-    height: 300,
+    width: 350, 
+    height: 350,
     resizeMode : "contain",
-    borderWidth: 7, 
-    borderColor: 'black',
-    borderRadius:12,
   },
   imageContainer: {
     justifyContent: 'center', 

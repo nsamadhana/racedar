@@ -1,18 +1,25 @@
 import React from 'react';
+import { useRoute } from "@react-navigation/native"
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
 export default function Result({navigation}) {
+
+  const route = useRoute();
+  const finalScore = route.params?.userScore; 
+  
+
   return (
     <View style={styles.container} >
-      <View>
-        <Text>This is the result screen</Text>
-      </View>
 
       <View style={styles.bannerContainer}>
       <Image source={require('../assets/curious.png')}
         style={styles.banner}
         resizeMode="contain"
       />
+
+      <View>
+      <Text>Boy you scored a whopping {finalScore}/10</Text>
+      </View>
     </View>
 
     <View> 
