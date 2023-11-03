@@ -1,36 +1,62 @@
 import React from 'react';
-import { useRoute } from "@react-navigation/native"
+import { useRoute } from "@react-navigation/native";
+import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 
-//Generates result message from user score
-const getMessageFromScore =(score)=>{
-  if (score == 0) {
-    return "You are a menace to society. Please touch some grass";
-  } else if (score <= 3) {
-    return "You are a probably a key member of MAGA";
-  } else if (score <= 6) {
-    return "Not bad! You payed attention in DEI training!"
-  } else if (score <= 9) {
-    return "Wow! You are a true inclusivity warrior!"
-  } else {
-    return "YOU ARE THE ONE TRUE RACEDAR"
-  }
-};
+
 
 export default function Result({navigation}) {
-  //Retrieve user score from the quiz page 
+  const[resultImageUrl, setResultImageUrl] = useState(null);
+  const[message, setMessage] = useState("");
   const route = useRoute();
   const finalScore = route.params?.userScore; 
-  const message = getMessageFromScore(finalScore); 
+
+  
+  const getMessageFromScore =(score, setResultImageUrl)=>{
+    let message = "";
+    let imageUrl = "";
+
+    if (score == 0) {
+      imageUrl = "https://images.seattletimes.com/wp-content/uploads/2023/06/urnpublicidap.orgd50264cc69b9a6eefd8e47821359ff5eElection_2024_Trump_Georgia_Republican_Convention_28319.jpg?d=780x520";
+      message = "You are a menace to society. Please touch some grass.";
+    } else if (score <= 3) {
+      imageUrl = "https://occ-0-2794-2219.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABY-vFmQHpj9BDBVJJBpcuz1h1qqdfAEr55rRHzh9yPDIkzhyC9N_RXn1jp-D4eNNR_pmsf8FqUNsFr76RmGXRFU5zGAON9NXGIBTjQk1vnUYpT261FpPELCq.jpg?r=e7a";
+      message = "You are probably a key member of MAGA.";
+    } else if (score <= 6) {
+      imageUrl = "https://static.wikia.nocookie.net/theoffice/images/5/53/Diversity_Day.png/revision/latest?cb=20190227025918";
+      message = "Looks like someone paid attention during DEI training.";
+    } else if (score <= 9) {
+      imageUrl = "https://media.cnn.com/api/v1/images/stellar/prod/150122104348-bill-clinton-basketball.jpg?q=x_0,y_80,h_863,w_1535,c_crop/h_720,w_1280/f_webp";
+      message = "You are better than most people and should let them know.";
+    } else {
+      imageUrl = "https://www.usatoday.com/gcdn/presto/2019/01/21/USAT/79aeb6e5-4f9a-4a10-8f43-8ad0f642a0ec-AFP_AFP_13C6FH.JPG?crop=2499,1428,x0,y169&width=2499&height=1428&format=pjpg&auto=webp";
+      message = "You do not see color. Congratulations, you are the racedar. ";
+    }
+
+    setResultImageUrl(imageUrl);
+    return message; 
+  };
+
+
+
+  useEffect(() => {
+    // Get the message based on the score
+    const msg = getMessageFromScore(finalScore, setResultImageUrl);
+    // Now you have the message without triggering re-renders
+
+    // You can use the message in your component for display or other purposes
+    setMessage(msg);
+  }, [finalScore]);
 
   return (
     <View style={styles.container} >
 
       <View style={styles.bannerContainer}>
-      <Image source={require('../assets/curious.png')}
+      <Image 
         style={styles.banner}
-        resizeMode="contain"
-      />
+        source={{ uri: resultImageUrl }}>
+        </Image>
+
 
       <View>
       <Text style={styles.scoreText}>You scored {finalScore}/10</Text>
@@ -55,8 +81,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   banner: {
-    height: 300,
-    width: 300
+    height: 400,
+    width: 350,
+    resizeMode:"contain"  
   },
   bannerContainer: {
     justifyContent: 'center', 
