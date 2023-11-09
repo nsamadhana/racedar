@@ -30,7 +30,7 @@ export default function Home({navigation}) {
   const handleBrown2Press = () => {
     navigation.navigate("Quiz", {
       color: "brown2",
-      options: ["Mexico", "Brazil", "Argentina", "Columbia"]
+      options: ["Mexico", "Brazil", "Philippines", "Columbia"]
     });
   }
 
