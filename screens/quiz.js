@@ -118,6 +118,7 @@ export default function Quiz({navigation}) {
 
       {currentImageUrl &&  (<Image 
       style = {styles.image} 
+      loading = "lazy"
       source={{ uri: currentImageUrl }}>
       </Image>
       )}
