@@ -37,7 +37,7 @@ export default function Home({navigation}) {
   const handleWhitePress = () => {
     navigation.navigate("Quiz", {
       color: "white",
-      options: ["Britain", "France", "Russia", "Germany"]
+      options: ["Britain", "France", "Russia", "German"]
     });
   }
 
