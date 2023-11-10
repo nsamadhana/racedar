@@ -12,14 +12,22 @@ param: collectionName
 returns a list of image URLs 
 */ 
 async function getDocumentsFromFireStore(collectionName) {
-  const querySnapshot = await getDocs(collection(db, collectionName));
-  const urls = [];
-  const imageData = []; 
-  querySnapshot.forEach((doc) => {
-    imageData.push(doc.data());
-  });
 
-  return imageData; 
+  try {
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    const urls = [];
+    const imageData = []; 
+    querySnapshot.forEach((doc) => {
+      imageData.push(doc.data());
+    });
+  
+    return imageData; 
+
+  } catch(err) {
+    console.log("Failed to connect to Google Firebase account");
+    alert("500 Internal server error. Please try again later.");
+  }
+
 }
 
   //Initialize firebase app/firestore, and get a reference to the server
