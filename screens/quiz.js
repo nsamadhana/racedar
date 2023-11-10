@@ -156,7 +156,7 @@ export default function Quiz({navigation}) {
       <View style={styles.bottom}> 
         <View style={styles.scoreContainer}>
 
-        {counter !== 10 && (
+        {counter !== 9 && (
           <TouchableOpacity
             style={[
               styles.checkButton,
@@ -167,9 +167,17 @@ export default function Quiz({navigation}) {
             <Text style={styles.checkButtonText}>CHECK</Text>
           </TouchableOpacity>
         )}
-        {counter===10 && <TouchableOpacity style={styles.checkButton} onPress={()=>navigation.navigate("Result", {userScore})}>
+        {counter === 9 && (
+        <TouchableOpacity
+            style={[
+              styles.checkButton, 
+              selectedEthnicity ? {} : { backgroundColor: 'gray' },
+              ]}
+            onPress={() => navigation.navigate("Result", { userScore })}
+            >
           <Text style={styles.checkButtonText}>See Results</Text>
-        </TouchableOpacity> }
+        </TouchableOpacity>
+)}
 
         <Text style = {styles.score}>{userScore}/10</Text>
 
